@@ -119,7 +119,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "com.github.brianjr03"
                 artifactId = "esde-companion-lib"
-                version = "1.0.0"
+                version = "0.4.1"
             }
         }
     }
