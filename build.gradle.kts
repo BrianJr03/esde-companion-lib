@@ -119,7 +119,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "com.github.brianjr03"
                 artifactId = "esde-companion-lib"
-                version = "0.4.1"
+                version = "0.4.2"
             }
         }
     }
@@ -130,3 +130,4 @@ configurations.all {
         force("com.google.protobuf:protobuf-java:4.29.3")
     }
 }
+
