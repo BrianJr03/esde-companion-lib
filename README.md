@@ -1,6 +1,6 @@
 # ES-DE Companion Library
 
-An Android library for integrating ES-DE (EmulationStation Desktop Edition) with Android applications, providing dynamic wallpapers, event listening, and UI components.
+An Android library for integrating ES-DE Companion with Android applications, providing dynamic wallpapers, event listening, and UI components.
 
 ## Features
 
@@ -164,12 +164,4 @@ The library requires the following permissions (automatically merged):
 ## Credits
 
 - Inspired by **ES-DE Companion** by @RobZombie9043
-- Built for integration with **ES-DE** (EmulationStation Desktop Edition)
-
-## License
-
-[Include your license here]
-
-## Support
-
-For issues, questions, or contributions, please [open an issue](link-to-your-repo).
+- Built for integration with **ES-DE** for Android
