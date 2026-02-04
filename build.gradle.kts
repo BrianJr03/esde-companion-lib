@@ -1,9 +1,9 @@
 plugins {
     id("com.android.library") version "8.7.3"
-    id("org.jetbrains.kotlin.android") version "2.1.0"
-    id("org.jetbrains.kotlin.plugin.compose") version "2.1.0"
-    id("com.google.devtools.ksp") version "2.1.0-1.0.29"
-    id("com.google.dagger.hilt.android") version "2.52"
+    id("org.jetbrains.kotlin.android") version "2.2.21"
+    id("org.jetbrains.kotlin.plugin.compose") version "2.2.21"
+    id("com.google.devtools.ksp") version "2.2.21-2.0.4"
+    id("com.google.dagger.hilt.android") version "2.56.2"
     id("maven-publish")
 }
 
@@ -77,8 +77,8 @@ dependencies {
     implementation(libs.androidx.documentfile.v110)
 
     // Hilt
-    implementation("com.google.dagger:hilt-android:2.52")
-    ksp("com.google.dagger:hilt-compiler:2.52")
+    implementation("com.google.dagger:hilt-android:2.56.2")
+    ksp("com.google.dagger:hilt-compiler:2.56.2")
     implementation(libs.androidx.hilt.navigation.compose.v130)
 
     // Room Database
