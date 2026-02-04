@@ -1,5 +1,5 @@
 plugins {
-    id("com.android.library") version "8.7.3"
+    id("com.android.library") version "8.11.2"
     id("org.jetbrains.kotlin.android") version "2.2.21"
     id("org.jetbrains.kotlin.plugin.compose") version "2.2.21"
     id("com.google.devtools.ksp") version "2.2.21-2.0.4"
@@ -42,6 +42,13 @@ android {
         compose = true
         buildConfig = true
     }
+
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
 }
 
 dependencies {
@@ -77,8 +84,8 @@ dependencies {
     implementation(libs.androidx.documentfile.v110)
 
     // Hilt
-    implementation("com.google.dagger:hilt-android:2.56.2")
-    ksp("com.google.dagger:hilt-compiler:2.56.2")
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose.v130)
 
     // Room Database
@@ -119,7 +126,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "com.github.brianjr03"
                 artifactId = "esde-companion-lib"
-                version = "v0.4.3"
+                version = "v0.4.4"
             }
         }
     }

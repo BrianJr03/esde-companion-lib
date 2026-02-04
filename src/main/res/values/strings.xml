@@ -17,7 +17,7 @@
     <string name="esde_setup_start_setup">Start Setup</string>
 
     <!-- ESDE Setup Wizard Step Titles -->
-    <string name="esde_setup_title_welcome">ES-DE x Jarngreipr</string>
+    <string name="esde_setup_title_welcome">ES-DE Companion</string>
     <string name="esde_setup_title_permissions">Step 1: Storage Permissions</string>
     <string name="esde_setup_title_permissions_granted">Step 1 Complete</string>
     <string name="esde_setup_title_scripts_folder">Step 2: ES-DE Scripts Folder</string>
@@ -28,7 +28,7 @@
     <string name="esde_setup_title_warning">Warning</string>
 
     <!-- ESDE Setup Wizard Content -->
-    <string name="esde_setup_welcome_content">Before using ES-DE with Jarngreipr, you\'ll need to follow these steps\n\n1. Grant storage permissions\n2. Select ES-DE scripts folder\n3. Create script files\n4. Select downloaded media folder\n5. Enable scripts in ES-DE\n\nIf you\'re familiar with ES-DE Companion, this is the exact same process.</string>
+    <string name="esde_setup_welcome_content">Before using ES-DE Companion, you\'ll need to follow these steps\n\n1. Grant storage permissions\n2. Select ES-DE scripts folder\n3. Create script files\n4. Select downloaded media folder\n5. Enable scripts in ES-DE\n\nIf you\'re familiar with ES-DE Companion, this is the exact same process.</string>
     <string name="esde_setup_permissions_content">Storage access is required to create scripts and access media.\n\nTap \'Grant Permission\' to open settings. The wizard will continue once granted.</string>
     <string name="esde_setup_permissions_granted_content">The app can now manage scripts and media files.</string>
     <string name="esde_setup_scripts_folder_content">Select your ES-DE scripts folder (typically ~/ES-DE/scripts).\n\nTap \'Select Folder\' to choose, or \'Use Default\' for the standard internal storage path.</string>
@@ -43,7 +43,7 @@
     <string name="esde_setup_warning_scripts_missing">Warning: Required scripts are missing from this folder.\n\nWithout these, the app cannot receive game information from ES-DE.\n\nContinue anyway?</string>
 
     <!-- ESDE Settings Screen -->
-    <string name="esde_settings_title">ES-DE Display Settings</string>
+    <string name="esde_settings_title">ES-DE Settings</string>
     <string name="esde_settings_description">Configure ES-DE wallpaper and effects</string>
     <string name="esde_settings_section_animation">Animation</string>
     <string name="esde_settings_section_effects">Visual Effects</string>
