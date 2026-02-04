@@ -1,9 +1,9 @@
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.ksp)
-    alias(libs.plugins.hilt.android)
+    id("com.android.library") version "8.7.3"
+    id("org.jetbrains.kotlin.android") version "2.1.0"
+    id("org.jetbrains.kotlin.plugin.compose") version "2.1.0"
+    id("com.google.devtools.ksp") version "2.1.0-1.0.29"
+    id("com.google.dagger.hilt.android") version "2.52"
     id("maven-publish")
 }
 
@@ -32,8 +32,10 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
-    kotlinOptions {
-        jvmTarget = "11"
+    kotlin {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11)
+        }
     }
 
     buildFeatures {
@@ -42,58 +44,58 @@ android {
     }
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("release") {
-            groupId = "jr.brian"
-            artifactId = "esde-companion-lib"
-            version = "1.0.0"
-            
-            afterEvaluate {
+dependencies {
+    // AndroidX Core
+    implementation(libs.androidx.core.ktx.v1170)
+    implementation(libs.androidx.lifecycle.runtime.ktx.v294)
+    implementation(libs.androidx.lifecycle.viewmodel.compose.v294)
+    implementation(libs.androidx.lifecycle.runtime.compose.v294)
+
+    // Compose
+    val composeBom = platform("androidx.compose:compose-bom:2024.09.00")
+    implementation(composeBom)
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.ui.graphics)
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.material.icons.extended)
+    implementation(libs.androidx.navigation.compose.v297)
+
+    // Image Loading - Coil
+    implementation(libs.coil.kt.coil.compose)
+    implementation(libs.coil.kt.coil.gif)
+    implementation(libs.coil.kt.coil.svg)
+
+    // Media3 for video playback
+    implementation(libs.androidx.media3.exoplayer.v191)
+    implementation(libs.androidx.media3.ui.v191)
+
+    // DataStore for preferences
+    implementation(libs.androidx.datastore.preferences.v120)
+
+    // DocumentFile for file access
+    implementation(libs.androidx.documentfile.v110)
+
+    // Hilt
+    implementation("com.google.dagger:hilt-android:2.52")
+    ksp("com.google.dagger:hilt-compiler:2.52")
+    implementation(libs.androidx.hilt.navigation.compose.v130)
+
+    // Testing
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit.v130)
+    androidTestImplementation(libs.androidx.espresso.core.v370)
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("release") {
                 from(components["release"])
+                groupId = "com.github.brianjr03"
+                artifactId = "esde-companion-lib"
+                version = "1.0.0"
             }
         }
     }
-}
-
-dependencies {
-    // AndroidX Core
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
-    implementation(libs.androidx.lifecycle.runtime.compose)
-    
-    // Compose
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
-    implementation(libs.androidx.material.icons.extended)
-    implementation(libs.androidx.navigation.compose)
-    
-    // Image Loading
-    implementation(libs.coil.compose)
-    implementation(libs.coil.gif)
-    implementation(libs.coil.svg)
-    
-    // Media3 for video playback
-    implementation(libs.androidx.media3.exoplayer)
-    implementation(libs.androidx.media3.ui)
-    
-    // DataStore for preferences
-    implementation(libs.androidx.datastore.preferences)
-    
-    // DocumentFile for file access
-    implementation(libs.androidx.documentfile)
-    
-    // Hilt
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.compiler)
-    implementation(libs.hilt.navigation.compose)
-    
-    // Testing
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
 }
