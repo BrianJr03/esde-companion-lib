@@ -97,4 +97,45 @@
     <string name="esde_settings_section_setup">Setup</string>
     <string name="esde_settings_run_setup_wizard">Run Setup Wizard</string>
     <string name="esde_settings_run_setup_wizard_description">Re-run the setup wizard to configure paths and scripts</string>
+    
+    <!-- Widget Settings -->
+    <string name="esde_settings_section_widgets">Widget Settings</string>
+    <string name="esde_settings_widget_pagination">Enable Widget Pagination</string>
+    <string name="esde_settings_widget_pagination_description">Allow multiple pages of widgets</string>
+    <string name="esde_settings_max_widgets_per_page">Max Widgets Per Page</string>
+    
+    <!-- Audio Settings -->
+    <string name="esde_settings_section_audio">Audio Settings</string>
+    <string name="esde_settings_audio_normalization">Enable Audio Normalization</string>
+    <string name="esde_settings_audio_normalization_description">Automatically normalize audio volume levels</string>
+    <string name="esde_settings_target_lufs">Target LUFS</string>
+    
+    <!-- Media Scraper -->
+    <string name="esde_settings_section_scraper">Media Scraper</string>
+    <string name="esde_settings_scraper_enabled">Enable Media Scraper</string>
+    <string name="esde_settings_scraper_enabled_description">Download game artwork and metadata</string>
+    <string name="esde_settings_auto_download_media">Auto-Download Media</string>
+    <string name="esde_settings_auto_download_media_description">Automatically download media when found</string>
+    <string name="esde_settings_steamgriddb_api_key">SteamGridDB API Key</string>
+    <string name="esde_settings_steamgriddb_api_key_description">Get your API key from steamgriddb.com</string>
+    <string name="esde_settings_igdb_client_id">IGDB Client ID</string>
+    <string name="esde_settings_igdb_client_id_description">Get credentials from api.igdb.com</string>
+    <string name="esde_settings_igdb_client_secret">IGDB Client Secret</string>
+    <string name="esde_settings_open_scraper">Open Media Scraper</string>
+    <string name="esde_settings_open_scraper_description">Search and download game artwork</string>
+    
+    <!-- Scraper UI -->
+    <string name="scraper_search_game_media">Search Game Media</string>
+    <string name="scraper_game_name">Game Name</string>
+    <string name="scraper_system_name">System Name</string>
+    <string name="scraper_search">Search</string>
+    <string name="scraper_cancel">Cancel</string>
+    <string name="scraper_searching">Searching…</string>
+    <string name="scraper_search_results">Search Results</string>
+    <string name="scraper_no_results">No results found</string>
+    <string name="scraper_download_all">Download All</string>
+    <string name="scraper_games_count">Games (%1$d)</string>
+    <string name="scraper_images_count">Images (%1$d)</string>
+    <string name="scraper_download">Download</string>
+    <string name="scraper_downloading">Downloading…</string>
 </resources>

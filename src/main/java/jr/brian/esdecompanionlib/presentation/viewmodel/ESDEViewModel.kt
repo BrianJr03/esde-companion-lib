@@ -12,6 +12,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import jr.brian.esdecompanionlib.data.model.GameImageType
 import jr.brian.esdecompanionlib.data.model.SystemImageType
 import jr.brian.esdecompanionlib.data.model.WallpaperState
+import jr.brian.esdecompanionlib.data.repository.AudioRepository
 import jr.brian.esdecompanionlib.data.repository.PreferencesRepository
 import jr.brian.esdecompanionlib.util.ESDEMediaConstants.ESDE_MEDIA_PATH
 import jr.brian.esdecompanionlib.util.ESDEMediaConstants.FOLDER_MARQUEES
@@ -35,7 +36,8 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class ESDEViewModel @Inject constructor(
-    val prefs: PreferencesRepository
+    val prefs: PreferencesRepository,
+    private val audioRepository: AudioRepository
 ) : ViewModel() {
     private val systemImageCache = mutableMapOf<String, String?>()
 
@@ -368,6 +370,10 @@ class ESDEViewModel @Inject constructor(
     private fun isImageFile(file: File): Boolean {
         val ext = file.extension.lowercase()
         return ext in IMAGE_EXTENSIONS
+    }
+
+    fun updateAudioForVideo(isVideoPlaying: Boolean) {
+        audioRepository.updateBackgroundState(isVideoPlaying)
     }
 
     override fun onCleared() {

@@ -14,20 +14,30 @@ import jr.brian.esdecompanionlib.data.model.SystemImageType
 import jr.brian.esdecompanionlib.util.ESDEPreferencesConstants.KEY_ANIMATION_DURATION
 import jr.brian.esdecompanionlib.util.ESDEPreferencesConstants.KEY_ANIMATION_SCALE
 import jr.brian.esdecompanionlib.util.ESDEPreferencesConstants.KEY_ANIMATION_STYLE
+import jr.brian.esdecompanionlib.util.ESDEPreferencesConstants.KEY_AUDIO_NORMALIZATION_ENABLED
 import jr.brian.esdecompanionlib.util.ESDEPreferencesConstants.KEY_BACKGROUND_COLOR
 import jr.brian.esdecompanionlib.util.ESDEPreferencesConstants.KEY_BLUR_LEVEL
 import jr.brian.esdecompanionlib.util.ESDEPreferencesConstants.KEY_DIMMING_LEVEL
 import jr.brian.esdecompanionlib.util.ESDEPreferencesConstants.KEY_ESDE_ENABLED
 import jr.brian.esdecompanionlib.util.ESDEPreferencesConstants.KEY_GAME_IMAGE_TYPE
 import jr.brian.esdecompanionlib.util.ESDEPreferencesConstants.KEY_HIDE_CONTENT_ON_VIDEO
+import jr.brian.esdecompanionlib.util.ESDEPreferencesConstants.KEY_IGDB_CLIENT_ID
+import jr.brian.esdecompanionlib.util.ESDEPreferencesConstants.KEY_IGDB_CLIENT_SECRET
 import jr.brian.esdecompanionlib.util.ESDEPreferencesConstants.KEY_LAST_SELECTED_SYSTEM
 import jr.brian.esdecompanionlib.util.ESDEPreferencesConstants.KEY_LOGO_ALIGNMENT
+import jr.brian.esdecompanionlib.util.ESDEPreferencesConstants.KEY_MAX_WIDGETS_PER_PAGE
 import jr.brian.esdecompanionlib.util.ESDEPreferencesConstants.KEY_RANDOM_SYSTEM_IMAGE
+import jr.brian.esdecompanionlib.util.ESDEPreferencesConstants.KEY_SCRAPER_AUTO_DOWNLOAD
+import jr.brian.esdecompanionlib.util.ESDEPreferencesConstants.KEY_SCRAPER_ENABLED
+import jr.brian.esdecompanionlib.util.ESDEPreferencesConstants.KEY_SCRAPER_PREFERRED_SOURCE
 import jr.brian.esdecompanionlib.util.ESDEPreferencesConstants.KEY_SHOW_SYSTEM_LOGO
+import jr.brian.esdecompanionlib.util.ESDEPreferencesConstants.KEY_STEAM_GRID_API_KEY
 import jr.brian.esdecompanionlib.util.ESDEPreferencesConstants.KEY_SYSTEM_IMAGE_TYPE
+import jr.brian.esdecompanionlib.util.ESDEPreferencesConstants.KEY_TARGET_LUFS
 import jr.brian.esdecompanionlib.util.ESDEPreferencesConstants.KEY_VIDEO_AUDIO_ENABLED
 import jr.brian.esdecompanionlib.util.ESDEPreferencesConstants.KEY_VIDEO_DELAY
 import jr.brian.esdecompanionlib.util.ESDEPreferencesConstants.KEY_VIDEO_ENABLED
+import jr.brian.esdecompanionlib.util.ESDEPreferencesConstants.KEY_WIDGET_PAGINATION_ENABLED
 import jr.brian.esdecompanionlib.util.ESDEPreferencesConstants.PREFS_NAME
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -92,7 +102,17 @@ class PreferencesRepository(context: Context) {
             showSystemLogo = prefs.getBoolean(KEY_SHOW_SYSTEM_LOGO, true),
             logoAlignment = logoAlignment,
             randomSystemImage = prefs.getBoolean(KEY_RANDOM_SYSTEM_IMAGE, false),
-            hideContentOnVideo = prefs.getBoolean(KEY_HIDE_CONTENT_ON_VIDEO, false)
+            hideContentOnVideo = prefs.getBoolean(KEY_HIDE_CONTENT_ON_VIDEO, false),
+            widgetPaginationEnabled = prefs.getBoolean(KEY_WIDGET_PAGINATION_ENABLED, false),
+            maxWidgetsPerPage = prefs.getInt(KEY_MAX_WIDGETS_PER_PAGE, 4),
+            audioNormalizationEnabled = prefs.getBoolean(KEY_AUDIO_NORMALIZATION_ENABLED, false),
+            targetLufs = prefs.getFloat(KEY_TARGET_LUFS, -16.0f).toDouble(),
+            scraperEnabled = prefs.getBoolean(KEY_SCRAPER_ENABLED, false),
+            scraperAutoDownload = prefs.getBoolean(KEY_SCRAPER_AUTO_DOWNLOAD, false),
+            scraperPreferredSource = prefs.getString(KEY_SCRAPER_PREFERRED_SOURCE, "IGDB") ?: "IGDB",
+            steamGridApiKey = prefs.getString(KEY_STEAM_GRID_API_KEY, "") ?: "",
+            igdbClientId = prefs.getString(KEY_IGDB_CLIENT_ID, "") ?: "",
+            igdbClientSecret = prefs.getString(KEY_IGDB_CLIENT_SECRET, "") ?: ""
         )
     }
 
@@ -185,6 +205,56 @@ class PreferencesRepository(context: Context) {
     fun setHideContentOnVideo(hide: Boolean) {
         _state.value = _state.value.copy(hideContentOnVideo = hide)
         prefs.edit { putBoolean(KEY_HIDE_CONTENT_ON_VIDEO, hide) }
+    }
+
+    fun setWidgetPaginationEnabled(enabled: Boolean) {
+        _state.value = _state.value.copy(widgetPaginationEnabled = enabled)
+        prefs.edit { putBoolean(KEY_WIDGET_PAGINATION_ENABLED, enabled) }
+    }
+
+    fun setMaxWidgetsPerPage(max: Int) {
+        _state.value = _state.value.copy(maxWidgetsPerPage = max)
+        prefs.edit { putInt(KEY_MAX_WIDGETS_PER_PAGE, max) }
+    }
+
+    fun setAudioNormalizationEnabled(enabled: Boolean) {
+        _state.value = _state.value.copy(audioNormalizationEnabled = enabled)
+        prefs.edit { putBoolean(KEY_AUDIO_NORMALIZATION_ENABLED, enabled) }
+    }
+
+    fun setTargetLufs(lufs: Double) {
+        _state.value = _state.value.copy(targetLufs = lufs)
+        prefs.edit { putFloat(KEY_TARGET_LUFS, lufs.toFloat()) }
+    }
+
+    fun setScraperEnabled(enabled: Boolean) {
+        _state.value = _state.value.copy(scraperEnabled = enabled)
+        prefs.edit { putBoolean(KEY_SCRAPER_ENABLED, enabled) }
+    }
+
+    fun setScraperAutoDownload(enabled: Boolean) {
+        _state.value = _state.value.copy(scraperAutoDownload = enabled)
+        prefs.edit { putBoolean(KEY_SCRAPER_AUTO_DOWNLOAD, enabled) }
+    }
+
+    fun setScraperPreferredSource(source: String) {
+        _state.value = _state.value.copy(scraperPreferredSource = source)
+        prefs.edit { putString(KEY_SCRAPER_PREFERRED_SOURCE, source) }
+    }
+
+    fun setSteamGridApiKey(key: String) {
+        _state.value = _state.value.copy(steamGridApiKey = key)
+        prefs.edit { putString(KEY_STEAM_GRID_API_KEY, key) }
+    }
+
+    fun setIgdbClientId(id: String) {
+        _state.value = _state.value.copy(igdbClientId = id)
+        prefs.edit { putString(KEY_IGDB_CLIENT_ID, id) }
+    }
+
+    fun setIgdbClientSecret(secret: String) {
+        _state.value = _state.value.copy(igdbClientSecret = secret)
+        prefs.edit { putString(KEY_IGDB_CLIENT_SECRET, secret) }
     }
 }
 

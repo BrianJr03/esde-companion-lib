@@ -81,6 +81,31 @@ dependencies {
     ksp("com.google.dagger:hilt-compiler:2.52")
     implementation(libs.androidx.hilt.navigation.compose.v130)
 
+    // Room Database
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
+
+    // Networking - Retrofit & OkHttp
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.gson)
+    implementation(libs.okhttp)
+    implementation(libs.gson)
+
+    // API & Data
+    implementation(libs.igdb.api) {
+        exclude(group = "com.google.protobuf")
+    }
+    implementation(libs.protobuf.java)
+
+    // Audio Processing
+    implementation(libs.tarsos.dsp)
+
+    // UI Libraries
+    implementation(libs.androidsvg)
+    implementation(libs.shimmer)
+    implementation(libs.reorderable)
+
     // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit.v130)
@@ -97,5 +122,11 @@ afterEvaluate {
                 version = "1.0.0"
             }
         }
+    }
+}
+
+configurations.all {
+    resolutionStrategy {
+        force("com.google.protobuf:protobuf-java:4.29.3")
     }
 }

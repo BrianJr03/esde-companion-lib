@@ -10,7 +10,7 @@ object ESDEEventConstants {
     const val POLL_INTERVAL = 500L
 
     // Paths
-    const val LOGS_PATH = "/storage/emulated/0/ES-DE Jarngreipr/logs"
+    const val LOGS_PATH = "/storage/emulated/0/ES-DE Companion/logs"
 
     // System event files
     const val FILE_SYSTEM_NAME = "esde_system_name.txt"

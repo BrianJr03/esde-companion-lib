@@ -54,7 +54,17 @@ data class ESDEPrefsState(
     val showSystemLogo: Boolean = true,
     val logoAlignment: LogoAlignment = LogoAlignment.Center,
     val randomSystemImage: Boolean = false,
-    val hideContentOnVideo: Boolean = false
+    val hideContentOnVideo: Boolean = false,
+    val widgetPaginationEnabled: Boolean = false,
+    val maxWidgetsPerPage: Int = 4,
+    val audioNormalizationEnabled: Boolean = false,
+    val targetLufs: Double = -16.0,
+    val scraperEnabled: Boolean = false,
+    val scraperAutoDownload: Boolean = false,
+    val scraperPreferredSource: String = "IGDB",
+    val steamGridApiKey: String = "",
+    val igdbClientId: String = "",
+    val igdbClientSecret: String = ""
 ) {
     /** Dimming level as float (0.0 to 1.0) */
     val dimmingLevelFloat: Float get() = dimmingLevel / 100f

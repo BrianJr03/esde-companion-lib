@@ -34,9 +34,11 @@ import jr.brian.esdecompanionlib.esde.ui.components.AnimationStyleSelector
 import jr.brian.esdecompanionlib.esde.ui.components.BackgroundColorSelector
 import jr.brian.esdecompanionlib.esde.ui.components.GameImageTypeSelector
 import jr.brian.esdecompanionlib.esde.ui.components.LogoAlignmentSelector
+import jr.brian.esdecompanionlib.esde.ui.components.ScraperSourceSelector
 import jr.brian.esdecompanionlib.esde.ui.components.SectionHeader
 import jr.brian.esdecompanionlib.esde.ui.components.SliderSetting
 import jr.brian.esdecompanionlib.esde.ui.components.SystemImageTypeSelector
+import jr.brian.esdecompanionlib.esde.ui.components.TextInputSetting
 import jr.brian.esdecompanionlib.esde.ui.components.ToggleSetting
 import jr.brian.esdecompanionlib.presentation.viewmodel.ESDEViewModel
 
@@ -44,6 +46,7 @@ import jr.brian.esdecompanionlib.presentation.viewmodel.ESDEViewModel
 fun ESDESettingsScreen(
     onNavigateBack: () -> Unit,
     onRunSetupWizard: () -> Unit,
+    onOpenScraper: () -> Unit = {},
     viewModel: ESDEViewModel = hiltViewModel(),
     backgroundColor: Color = Color(0xFF121212),
     primaryColor: Color = Color(0xFF6200EE),
@@ -398,6 +401,206 @@ fun ESDESettingsScreen(
                             cardColor = cardColor,
                             focusScale = focusScale
                         )
+                    }
+
+                    item {
+                        Spacer(modifier = Modifier.height(8.dp))
+                        SectionHeader(
+                            text = stringResource(R.string.esde_settings_section_widgets),
+                            primaryColor = primaryColor
+                        )
+                    }
+
+                    item {
+                        ToggleSetting(
+                            title = stringResource(R.string.esde_settings_widget_pagination),
+                            description = stringResource(R.string.esde_settings_widget_pagination_description),
+                            checked = prefsState.widgetPaginationEnabled,
+                            onCheckedChange = { enabled ->
+                                preferencesManager.setWidgetPaginationEnabled(enabled)
+                            },
+                            primaryColor = primaryColor,
+                            secondaryColor = secondaryColor,
+                            cardColorLight = cardColorLight,
+                            cardColor = cardColor,
+                            focusScale = focusScale
+                        )
+                    }
+
+                    if (prefsState.widgetPaginationEnabled) {
+                        item {
+                            SliderSetting(
+                                title = stringResource(R.string.esde_settings_max_widgets_per_page),
+                                value = prefsState.maxWidgetsPerPage.toFloat(),
+                                valueRange = 1f..8f,
+                                steps = 6,
+                                valueText = "${prefsState.maxWidgetsPerPage}",
+                                onValueChange = { max ->
+                                    preferencesManager.setMaxWidgetsPerPage(max.toInt())
+                                },
+                                primaryColor = primaryColor,
+                                secondaryColor = secondaryColor,
+                                cardColorLight = cardColorLight,
+                                cardColor = cardColor,
+                                focusScale = focusScale
+                            )
+                        }
+                    }
+
+                    item {
+                        Spacer(modifier = Modifier.height(8.dp))
+                        SectionHeader(
+                            text = stringResource(R.string.esde_settings_section_audio),
+                            primaryColor = primaryColor
+                        )
+                    }
+
+                    item {
+                        ToggleSetting(
+                            title = stringResource(R.string.esde_settings_audio_normalization),
+                            description = stringResource(R.string.esde_settings_audio_normalization_description),
+                            checked = prefsState.audioNormalizationEnabled,
+                            onCheckedChange = { enabled ->
+                                preferencesManager.setAudioNormalizationEnabled(enabled)
+                            },
+                            primaryColor = primaryColor,
+                            secondaryColor = secondaryColor,
+                            cardColorLight = cardColorLight,
+                            cardColor = cardColor,
+                            focusScale = focusScale
+                        )
+                    }
+
+                    if (prefsState.audioNormalizationEnabled) {
+                        item {
+                            SliderSetting(
+                                title = stringResource(R.string.esde_settings_target_lufs),
+                                value = prefsState.targetLufs.toFloat(),
+                                valueRange = -24f..-12f,
+                                steps = 11,
+                                valueText = "${prefsState.targetLufs.toInt()} LUFS",
+                                onValueChange = { lufs ->
+                                    preferencesManager.setTargetLufs(lufs.toDouble())
+                                },
+                                primaryColor = primaryColor,
+                                secondaryColor = secondaryColor,
+                                cardColorLight = cardColorLight,
+                                cardColor = cardColor,
+                                focusScale = focusScale
+                            )
+                        }
+                    }
+
+                    item {
+                        Spacer(modifier = Modifier.height(8.dp))
+                        SectionHeader(
+                            text = stringResource(R.string.esde_settings_section_scraper),
+                            primaryColor = primaryColor
+                        )
+                    }
+
+                    item {
+                        ToggleSetting(
+                            title = stringResource(R.string.esde_settings_scraper_enabled),
+                            description = stringResource(R.string.esde_settings_scraper_enabled_description),
+                            checked = prefsState.scraperEnabled,
+                            onCheckedChange = { enabled ->
+                                preferencesManager.setScraperEnabled(enabled)
+                            },
+                            primaryColor = primaryColor,
+                            secondaryColor = secondaryColor,
+                            cardColorLight = cardColorLight,
+                            cardColor = cardColor,
+                            focusScale = focusScale
+                        )
+                    }
+
+                    if (prefsState.scraperEnabled) {
+                        item {
+                            ScraperSourceSelector(
+                                selectedSource = prefsState.scraperPreferredSource,
+                                onSourceSelected = { source ->
+                                    preferencesManager.setScraperPreferredSource(source)
+                                },
+                                primaryColor = primaryColor,
+                                secondaryColor = secondaryColor,
+                                cardColor = cardColor
+                            )
+                        }
+
+                        item {
+                            ToggleSetting(
+                                title = stringResource(R.string.esde_settings_auto_download_media),
+                                description = stringResource(R.string.esde_settings_auto_download_media_description),
+                                checked = prefsState.scraperAutoDownload,
+                                onCheckedChange = { auto ->
+                                    preferencesManager.setScraperAutoDownload(auto)
+                                },
+                                primaryColor = primaryColor,
+                                secondaryColor = secondaryColor,
+                                cardColorLight = cardColorLight,
+                                cardColor = cardColor,
+                                focusScale = focusScale
+                            )
+                        }
+
+                        item {
+                            TextInputSetting(
+                                title = stringResource(R.string.esde_settings_steamgriddb_api_key),
+                                value = prefsState.steamGridApiKey,
+                                onValueChange = { key ->
+                                    preferencesManager.setSteamGridApiKey(key)
+                                },
+                                description = stringResource(R.string.esde_settings_steamgriddb_api_key_description),
+                                placeholder = "Enter API key",
+                                isPassword = true,
+                                primaryColor = primaryColor,
+                                cardColor = cardColor
+                            )
+                        }
+
+                        item {
+                            TextInputSetting(
+                                title = stringResource(R.string.esde_settings_igdb_client_id),
+                                value = prefsState.igdbClientId,
+                                onValueChange = { id ->
+                                    preferencesManager.setIgdbClientId(id)
+                                },
+                                description = stringResource(R.string.esde_settings_igdb_client_id_description),
+                                placeholder = "Enter Client ID",
+                                primaryColor = primaryColor,
+                                cardColor = cardColor
+                            )
+                        }
+
+                        item {
+                            TextInputSetting(
+                                title = stringResource(R.string.esde_settings_igdb_client_secret),
+                                value = prefsState.igdbClientSecret,
+                                onValueChange = { secret ->
+                                    preferencesManager.setIgdbClientSecret(secret)
+                                },
+                                placeholder = "Enter Client Secret",
+                                isPassword = true,
+                                primaryColor = primaryColor,
+                                cardColor = cardColor
+                            )
+                        }
+
+                        item {
+                            ToggleSetting(
+                                title = stringResource(R.string.esde_settings_open_scraper),
+                                description = stringResource(R.string.esde_settings_open_scraper_description),
+                                checked = false,
+                                showToggle = false,
+                                onClick = onOpenScraper,
+                                primaryColor = primaryColor,
+                                secondaryColor = secondaryColor,
+                                cardColorLight = cardColorLight,
+                                cardColor = cardColor,
+                                focusScale = focusScale
+                            )
+                        }
                     }
                 }
             }

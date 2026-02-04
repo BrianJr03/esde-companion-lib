@@ -6,6 +6,10 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import jr.brian.esdecompanionlib.data.database.AppDatabase
+import jr.brian.esdecompanionlib.data.database.dao.LaunchBoxDao
+import jr.brian.esdecompanionlib.data.database.dao.LoudnessDao
+import jr.brian.esdecompanionlib.data.database.dao.MediaOverrideDao
 import jr.brian.esdecompanionlib.data.repository.ESDEEventListener
 import jr.brian.esdecompanionlib.data.repository.ESDEEventListenerImpl
 import jr.brian.esdecompanionlib.data.repository.EventRepository
@@ -47,5 +51,31 @@ object ESDEModule {
         eventListener: ESDEEventListener
     ): EventRepository {
         return EventRepository(eventListener)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAppDatabase(
+        @ApplicationContext context: Context
+    ): AppDatabase {
+        return AppDatabase.getInstance(context)
+    }
+
+    @Provides
+    @Singleton
+    fun provideLoudnessDao(database: AppDatabase): LoudnessDao {
+        return database.loudnessDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideMediaOverrideDao(database: AppDatabase): MediaOverrideDao {
+        return database.mediaOverrideDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideLaunchBoxDao(database: AppDatabase): LaunchBoxDao {
+        return database.launchBoxDao()
     }
 }
